@@ -4,6 +4,25 @@ import Button from './button';
 import Clock from './clock';
 
 export default class App extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      active: false
+    }
+  }
+  
+  renderItems = function() {
+    if(this.state.active) {
+      return [
+        <Clock/>
+      ]
+    } else {
+        return Button('Generate CountDown', () => this.setState({ active: true }))
+    }
+  }.bind(this)
+
   render() {
     return (
       <div className="grid">
@@ -18,8 +37,8 @@ export default class App extends Component {
         <div className="grid__skew-light-three-box"></div>
 
         <Picker/>
-        { Button('Generate CountDown') }
-        <Clock/>
+        { this.renderItems() }
+
       </div>
     );
   }
