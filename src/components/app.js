@@ -19,7 +19,7 @@ export default class App extends Component {
   }
 
   handleChange = function(date) {
-    console.log('APP JS HANDLE CHANGE', date._d)
+    console.log('APP JS HANDLE CHANGE', date._d);
     this.setState({
         startDate: date
     });
@@ -28,7 +28,7 @@ export default class App extends Component {
 handleGenerate = function() {
   this.setState({ active: true })
   // Set the date we're counting down to
-var countDownDate = new Date("Sep 5, 2018 15:37:25").getTime();
+var countDownDate = this.state.startDate.toDate().getTime();
  // Update the count down every 1 second
 var x = setInterval(function() {
    // Get todays date and time
@@ -65,7 +65,7 @@ var x = setInterval(function() {
     } else {
         return [
           <Picker callback={(date) => this.handleChange(date)}/>,
-          Button('Generate CountDown', () => this.setState({ active: true }))
+          Button('Generate CountDown', () => this.handleGenerate())
         ]
     }
   }.bind(this)
