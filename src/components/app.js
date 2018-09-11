@@ -37,9 +37,31 @@ export default class App extends Component {
 }.bind(this)
 
 handleGenerate = function() {
-  this.setState({ active: true })
+  this.setState({ active: true });
+
+  var bday = this.state.startDate.toDate();
+  var today = new Date();
+  var currentMonth = today.getMonth();
+  var birthMonth = bday.getMonth();
+
+  if(birthMonth > currentMonth) {
+    bday.setFullYear(today.getFullYear())
+  } else if(birthMonth < currentMonth) {
+    bday.setFullYear(today.getFullYear() + 1)
+  } else if(birthMonth == currentMonth) {
+    var currentDay = today.getDate();
+    var birthDay = bday.getDate();
+
+    if(birthDay > currentDay) {
+      bday.setFullYear(today.getFullYear())
+    }
+    if(birthDay <= currentDay) {
+      bday.setFullYear(today.getFullYear() + 1)
+    }
+  }
+
   // Set the date we're counting down to
-var countDownDate = this.state.startDate.toDate().getTime();
+var countDownDate = bday.getTime();
  // Update the count down every 1 second
 this.timer = setInterval(function() {
    // Get todays date and time
